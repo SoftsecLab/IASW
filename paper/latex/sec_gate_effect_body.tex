@@ -1,0 +1,21 @@
+% Body text to accompany Table \ref{tab:gate_effect}.
+% Place in the security / spoofing defense subsection.
+
+\paragraph{Impact of the gate on benign robustness.}
+Table~\ref{tab:gate_effect} reports $\Delta$TPR@$1\%$FPR when the deployed
+rule switches from Fisher-only to
+$(\mathcal{G}): z_{\mathrm{KGW}}\!\ge\!\tau_K \;\wedge\; z_{\mathrm{Fisher}}\!\ge\!\tau_F$.
+In every setting both rules are recalibrated on an independent no-watermark
+set to the same empirical FPR of $1\%$.
+On c4, macro-averaged over five backbones, the gate \emph{raises} mean attack
+TPR by $+4.0$~pp: conditioning on $z_{\mathrm{KGW}}\!\ge\!\tau_K$ removes the
+no-watermark outliers that would otherwise force $\tau_F$ upward, so the
+Fisher threshold can be more liberal under the same FPR budget.
+This benefit is reproduced on dolly ($+3.8$~pp).
+On wiki the mean is slightly negative ($-3.6$~pp), driven almost entirely by
+Dipper ($-25.8$~pp): Dipper drives $z_{\mathrm{KGW}}$ to near zero, so the
+gate correctly rejects texts whose token-level KGW evidence has been destroyed.
+We view this as an intentional safety--robustness trade-off rather than a
+defect: rather than letting an adversary forge anchors by exploiting a high
+Fisher score, we sacrifice detection of texts whose KGW channel is already
+unrecoverable.

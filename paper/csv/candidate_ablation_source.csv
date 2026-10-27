@@ -1,0 +1,9 @@
+﻿value,series_key,Method,Avg_Attacked_AUC,Avg_Attacked_TPR@1%FPR,Avg_Attacked_TPR@5%FPR,record_file
+8,iasw,IAS-W Only,0.7833078580185807,0.20421968434861693,0.3489835538994097,results/ablations/num_candidates/cand8/records/iasw.jsonl
+8,dual_kgw_iasw,KGW+IAS-W (Fisher Fusion),0.9714582168674699,0.8526095493083444,0.9072244533690318,results/ablations/num_candidates/cand8/records/dual_kgw_iasw.jsonl
+16,iasw,IAS-W Only,0.7765468715208195,0.15965263861055445,0.31685593409040297,results/ablations/num_candidates/cand16/records/iasw.jsonl
+16,dual_kgw_iasw,KGW+IAS-W (Fisher Fusion),0.974392888888889,0.8675555555555555,0.9137777777777778,results/ablations/num_candidates/cand16/records/dual_kgw_iasw.jsonl
+32,iasw,IAS-W Only,0.8431545698924731,0.3584229390681004,0.4979838709677419,results/ablations/num_candidates/cand32/records/iasw.jsonl
+32,dual_kgw_iasw,KGW+IAS-W (Fisher Fusion),0.9770702222222223,0.8839999999999999,0.9248888888888889,results/ablations/num_candidates/cand32/records/dual_kgw_iasw.jsonl
+64,iasw,IAS-W Only,0.8678558733951314,0.3286858381767786,0.5233054262389896,results/ablations/num_candidates/cand64/records/iasw.jsonl
+64,dual_kgw_iasw,KGW+IAS-W (Fisher Fusion),0.9781424092629702,0.8955519928746382,0.9262208862168781,results/ablations/num_candidates/cand64/records/dual_kgw_iasw.jsonl

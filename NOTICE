@@ -1,0 +1,16 @@
+NOTICE
+
+本仓库主代码采用 MIT 许可证（见 LICENSE）。
+
+`src/baselines/` 下的基线方法实现来自第三方研究项目，按各自上游许可再分发/适配，文件头部保留了上游版权声明（如 Apache License 2.0）。
+各上游项目与对应目录如下：
+
+- THU-BPM MarkLLM（SIR / SynGuard / DualMark / DiPmark / STA / SWEET 相关实现）: Apache License 2.0, https://github.com/THU-BPM/MarkLLM（对应 `synguard_core/`、`dualmark_core/`、`dipmark_core/`、   `sta_core/`、`sweet_core/`）
+- KGW 及其扩展（对应 `kgw_core/`）: 基于论文
+  "A Watermark for Large Language Models"（arXiv:2301.10226）的官方实现，见 https://arxiv.org/abs/2301.10226
+- SemStamp / SimMark（对应 `semstamp_core/`、`simmark_core/`）: 基于"SemStamp: A Semantic Watermark with Paraphrastic Robustness for Text Generation"（arXiv:2310.03991）的官方实现，见https://github.com/houjunpeng/semstamp
+- homoglyphs 数据（`kgw_core/homoglyphs.py` 内引用）:https://github.com/yamatt/homoglyphs
+
+第三方基线权重与统计文件（*.pth / *.pkl）不随本仓库分发，获取方式见`data/download_baseline_assets.py` 与 `DATA.md`。IAS-W 自身的白化统计量（`cache/iasw_stats/`）随本仓库分发。
+
+第三方原始数据集（C4 / DOLLY / Wiki）不随本仓库分发，获取方式见`data/download_datasets.py` 与 `DATA.md`。

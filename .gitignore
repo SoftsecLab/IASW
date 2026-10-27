@@ -1,0 +1,27 @@
+# —— 不应提交到 GitHub 的本地/大型文件 ——
+data/raw_*.jsonl
+data/calibration_set/
+data/main_exp/
+data/security_calibration/
+data/tests/baseline_triplets/
+results/
+archive/
+paper/old/
+paper/quan/
+paper/figures/epstiff/
+*.pth
+*.pkl
+*.pt
+*.arrow
+*.bak
+__pycache__/
+*.pyc
+logs/
+.DS_Store
+
+# —— 例外：IAS-W 白化统计量随仓库分发（clone 后即可用，无需单独下载）——
+cache/*
+!cache/iasw_stats/
+!cache/iasw_stats/**
+!cache/iasw_stats/**/*.pt
+!cache/iasw_stats/**/*.json

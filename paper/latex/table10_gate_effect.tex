@@ -1,0 +1,42 @@
+% Gate effect on benign robustness: change in TPR@1%FPR (pp) when switching
+% from Fisher-only to (z_KGW >= 2.0) AND (z_Fisher >= tau_F).
+% All Fisher thresholds recalibrated on independent no-wm set to FPR=1%.
+%
+% c4: macro over 5 backbones (cross_backbone_gate_detail.csv)
+% dolly / wiki: LLaMA-3.1-8B-Instruct only (compute_gate_effect_dolly_wiki.py)
+
+\begin{table}[t]
+\centering
+\small
+\setlength{\tabcolsep}{5pt}
+\renewcommand{\arraystretch}{1.08}
+\caption{Impact of the KGW security gate on benign robustness.
+Each cell is $\Delta$TPR@$1\%$FPR in percentage points (gated minus Fisher-only),
+with both rules recalibrated on an independent no-watermark set to the same
+empirical FPR of $1\%$.
+Positive means the gate \emph{improves} TPR; negative means it costs TPR.
+The gate is near-neutral on unattacked text and on average slightly improves
+TPR on c4; on wiki Dipper it costs $25.8$~pp because Dipper drives
+$z_{\mathrm{KGW}}$ below $2.0$.}
+\label{tab:gate_effect}
+\begin{tabular}{lrrr}
+\toprule
+\multirow{2}{*}{\textbf{Attack}} & \textbf{c4} & \textbf{dolly} & \textbf{wiki} \\
+ & \scriptsize(5-model macro) & \scriptsize(LLaMA-3.1-8B) & \scriptsize(LLaMA-3.1-8B) \\
+\midrule
+Before Attack      & $+0.8$ & $+0.8$ & $+0.4$ \\
+\midrule
+Typo               & $+6.0$ & $+2.6$ & $+3.0$ \\
+Drop               & $+1.8$ & $+1.8$ & $+0.6$ \\
+Swap               & $+1.6$ & $+1.8$ & $+0.8$ \\
+Del-Ins            & $+2.6$ & $+3.8$ & $-2.4$ \\
+Copy-Paste         & $+17.4$ & $+13.2$ & $-2.6$ \\
+Pegasus            & $+3.3$ & $+3.2$ & $-3.6$ \\
+Dipper             & $-4.4$ & $+0.6$ & $\mathbf{-25.8}$ \\
+Back Trans.        & $+4.0$ & $+3.2$ & $+1.2$ \\
+\midrule
+\rowcolor{gray!12}
+\textbf{Mean (8 attacks)} & $\mathbf{+4.0}$ & $\mathbf{+3.8}$ & $\mathbf{-3.6}$ \\
+\bottomrule
+\end{tabular}
+\end{table}

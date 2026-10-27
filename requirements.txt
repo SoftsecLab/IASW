@@ -1,0 +1,48 @@
+# 论文实验环境（Python 3.9.25 / CUDA 12.4 / PyTorch 2.6.0+cu124 / Transformers 4.49.0）
+# 说明：本文件由服务器 conda 环境导出后，按代码实际 import 筛选生成；
+# 未直接 import 的包（如 statsmodels、sacremoses、rouge-score、evaluate 等）已剔除。
+# torch 为 PyPI +cu124 版本，安装命令见下方注释。
+
+# --- 核心深度学习 ---
+torch==2.6.0+cu124
+transformers==4.49.0
+tokenizers==0.21.0
+accelerate==1.10.1
+datasets==3.3.2
+
+# --- 数值 / 科学计算 ---
+numpy==1.26.4
+scipy==1.13.1
+pandas==2.3.3
+scikit-learn==1.6.1
+
+# --- 文本处理 ---
+nltk==3.9.1
+jieba==0.42.1
+sentencepiece==0.2.1
+tiktoken==0.12.0
+
+# --- 语义嵌入 / 文本质量评估 ---
+sentence-transformers==5.1.2
+bert-score==0.3.13
+mauve-text==0.4.0
+
+# --- SemStamp / KGW 基线所需 ---
+kmeans-pytorch==0.3
+nearpy==1.0.0
+tenacity==9.1.2
+openai==2.29.0
+spacy==3.8.11
+en-core-web-sm==3.8.0
+
+# --- 绘图 ---
+matplotlib==3.9.2
+seaborn==0.13.2
+
+# --- 安装提示 ---
+# 1) torch 来自 PyTorch 官方源：
+#    pip install torch==2.6.0+cu124 --index-url https://download.pytorch.org/whl/cu124
+# 2) en_core_web_sm 需单独下载模型：
+#    python -m spacy download en_core_web_sm
+# 3) 其余依赖：
+#    pip install -r requirements.txt

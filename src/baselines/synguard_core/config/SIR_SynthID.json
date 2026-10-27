@@ -1,0 +1,34 @@
+{
+  "_comment": "This config is for the SIR algorithm, used for watermark detection.",
+  "algorithm_name_1": "SIR",
+  "delta": 1.0,
+  "chunk_length": 10,
+  "scale_dimension": 300,
+  "z_threshold": 0.2,
+  "transform_model_input_dim": 1024,
+  "transform_model_name": "watermark/sir/model/transform_model_cbert.pth",
+  "embedding_model_path": "watermark/sir/model/compositional-bert-large-uncased/",
+  "mapping_name": "watermark/sir/mapping/300_mapping_32000.json",
+
+  "_comment_": "This config is for the synthid algorithm, used for watermark detection.",
+  "algorithm_name_2": "SynthID",
+  "ngram_len": 5,
+  "keys": [
+    654, 400, 836, 123, 340, 443, 597, 160, 57, 29, 590, 639, 13, 715, 468, 990,
+    966, 226, 324, 585, 118, 504, 421, 521, 129, 669, 732, 225, 90, 960
+  ],
+  "sampling_table_size": 65536,
+  "sampling_table_seed": 0,
+  "watermark_mode": "non-distortionary",
+  "num_leaves": 2,
+  "context_history_size": 1024,
+  "detector_type": "mean",
+  "threshold": 0.52,
+  "gen_kwargs": {
+    "max_new_tokens": 200
+  },
+
+  "_comment_3": "This config is for deceding the importance of SIR and SynthID of the whole new model",
+  "descript": "may need to use a list later, to find out what is the best model_delta [ TODO ] ",
+  "model_delta": 0.7
+}

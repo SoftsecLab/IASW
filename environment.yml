@@ -1,0 +1,31 @@
+name: iasw
+channels:
+  - pytorch
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.9.25
+  - pytorch=2.1.0
+  - torchvision
+  - torchaudio
+  - pip
+  - pip:
+      - transformers==4.38.*
+      - datasets
+      - numpy
+      - scipy
+      - pandas
+      - scikit-learn
+      - sentence-transformers
+      - sentencepiece
+      - protobuf
+      - jieba
+      - nltk
+      - tqdm
+      - accelerate
+      - evaluate
+      - rouge-score
+      - sacremoses
+      - matplotlib
+      - seaborn
+      - statsmodels

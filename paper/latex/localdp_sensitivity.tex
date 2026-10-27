@@ -1,0 +1,64 @@
+% =============================================================================
+% Local-DP hyperparameter sensitivity & cross-domain robustness
+% Insert into ablation / analysis section
+% =============================================================================
+
+\begin{table}[htbp]
+\centering
+\small
+\caption{Local-DP parameter mismatch on three datasets (LLaMA-3.1-8B-Instruct,
+dual stream, human negatives). Each cell reports
+TPR@1\%FPR / TPR@5\%FPR / AUROC, averaged over 9 attacks.
+Rows are the scoring rule $(\delta_{\mathrm{DP}}, \alpha)$; columns are the test
+dataset. Bold marks the best configuration on each dataset.}
+\label{tab:localdp_mismatch}
+\begin{tabular}{lccc}
+\toprule
+\textbf{Scoring rule} & \textbf{C4} & \textbf{Wiki} & \textbf{Dolly} \\
+\midrule
+$\delta_{\mathrm{DP}}=-0.2,\;\alpha=\tfrac12$
+  & \textbf{.387 / .554 / .865} & .426 / .568 / .836 & \textbf{.341 / .530 / .841} \\
+$\delta_{\mathrm{DP}}=-0.05,\;\alpha=\tfrac12$
+  & .235 / .442 / .822 & \textbf{.525 / .648 / .847} & .237 / .432 / .819 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\paragraph{Local-DP hyperparameter sensitivity.}
+The Local-DP alignment score (Eq.~\eqref{eq:iasw_score}) depends on two
+hyperparameters: the gap penalty $\delta_{\mathrm{DP}}$ and the activation-area
+normalization exponent $\alpha$. We sweep
+$\delta_{\mathrm{DP}} \in \{0, -0.01, -0.02, -0.05, -0.10, -0.20\}$ against
+$\alpha \in \{1, \tfrac12\}$ on C4, Wiki, and Dolly, selecting the
+configuration that maximizes mean TPR@1\%FPR over the 9 attack suite
+(human negative pool, LLaMA-3.1-8B-Instruct dual stream).
+
+Two observations emerge. \textbf{First}, the normalization exponent is
+cross-domain consistent: $\alpha=\tfrac12$ (square-root activation area) is
+optimal on all three datasets. \textbf{Second}, the optimal gap penalty splits
+the datasets: $\delta_{\mathrm{DP}}=-0.2$ on C4 and Dolly, but
+$\delta_{\mathrm{DP}}=-0.05$ on Wiki. Wiki texts have longer, more
+semantically diffuse sentences; the stricter $-0.2$ gap prematurely truncates
+the local alignment path.
+
+\paragraph{Parameter mismatch and adaptation.}
+Table~\ref{tab:localdp_mismatch} quantifies the cost of using the wrong gap.
+Applying $\delta_{\mathrm{DP}}=-0.05$ to C4 or Dolly drops TPR@1\%FPR by
+$15.2$ and $10.4$ points, respectively; applying $\delta_{\mathrm{DP}}=-0.2$
+to Wiki drops it by $9.9$ points. The mismatch is asymmetric: the stricter
+gap $-0.2$ is a safer default, incurring smaller loss on mismatched domains
+than the looser gap $-0.05$.
+
+We therefore adopt a two-stage adaptation strategy.
+\textit{Stage 1 (zero-shot default):} a new domain is scored with
+$\delta_{\mathrm{DP}}=-0.2, \alpha=\tfrac12$ without any calibration.
+\textit{Stage 2 (lightweight tuning):} when a few hundred unlabeled human
+samples are available, we evaluate the held-out text under
+$\delta_{\mathrm{DP}} \in \{-0.05, -0.2\}$ and retain the configuration with
+higher empirical TPR@1\%FPR; the exponent $\alpha$ is left at
+$\tfrac12$ because it is consistent across datasets. When more validation
+data is available, the search can be expanded to the full six-value gap grid
+at negligible cost, since all scoring reuses cached similarity matrices and
+requires no GPU recomputation. When no labeled validation set is available,
+the dual/standalone score fusion already provides a fallback that attenuates
+gap mismatch without additional tuning.
